@@ -44,6 +44,8 @@ export interface Column {
   id: string;
   label: string;
   unit: string;
+  /** Significant figures for display. */
+  sf: number;
   source: "param" | "readout" | "derived";
 }
 

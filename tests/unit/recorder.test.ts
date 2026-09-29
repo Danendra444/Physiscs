@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { columnsFor, makeRow } from "@/lib/simkit/recorder";
+import { columnsFor, makeRow, recordBlockReason } from "@/lib/simkit/recorder";
 import type { DerivedColumn, ParamSpec, Readouts } from "@/lib/simkit/types";
 
 const params: ParamSpec[] = [
@@ -23,6 +23,22 @@ describe("columnsFor", () => {
     expect(cols.map((c) => c.source)).toEqual(["param", "param", "readout", "derived"]);
     expect(cols[2]).toMatchObject({ label: "F", unit: "N" });
     expect(cols[3]).toMatchObject({ label: "v²", unit: "m²/s²" });
+  });
+});
+
+describe("recordBlockReason", () => {
+  it("allows recording when every recordable value is known", () => {
+    expect(recordBlockReason({ ...sim, recordBlocker: undefined }, {}, {}, readouts)).toBeNull();
+  });
+
+  it("asks the student to wait while a value is still being measured", () => {
+    const pending = { ...readouts, F: { ...readouts.F, value: NaN } };
+    expect(recordBlockReason({ ...sim, recordBlocker: undefined }, {}, {}, pending)).toMatch(/Wait until F/);
+  });
+
+  it("uses the simulation's own reason first", () => {
+    const blocked = { ...sim, recordBlocker: () => "The string is cut." };
+    expect(recordBlockReason(blocked, {}, {}, readouts)).toBe("The string is cut.");
   });
 });
 

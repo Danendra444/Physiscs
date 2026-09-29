@@ -6,15 +6,34 @@ type RecordingSim = Pick<SimDefinition, "params" | "recordable" | "derivedColumn
 /** Columns of the data table: parameters, then recordable readouts, then derived columns. */
 export function columnsFor(sim: RecordingSim, readouts: Readouts): Column[] {
   return [
-    ...sim.params.map((p) => ({ id: p.id, label: p.symbol, unit: p.unit, source: "param" as const })),
+    ...sim.params.map((p) => ({ id: p.id, label: p.symbol, unit: p.unit, sf: p.sf, source: "param" as const })),
     ...sim.recordable.map((id) => ({
       id,
       label: readouts[id]?.symbol ?? id,
       unit: readouts[id]?.unit ?? "",
+      sf: readouts[id]?.sf ?? 3,
       source: "readout" as const,
     })),
-    ...sim.derivedColumns.map((d) => ({ id: d.id, label: d.label, unit: d.unit, source: "derived" as const })),
+    ...sim.derivedColumns.map((d) => ({ id: d.id, label: d.label, unit: d.unit, sf: 3, source: "derived" as const })),
   ];
+}
+
+/** Why a reading can't be recorded right now, or null if it can. */
+export function recordBlockReason<S>(
+  sim: RecordingSim & Pick<SimDefinition<S>, "recordBlocker">,
+  state: S,
+  params: Params,
+  readouts: Readouts,
+): string | null {
+  const own = sim.recordBlocker?.(state, params);
+  if (own) return own;
+  for (const id of sim.recordable) {
+    const q = readouts[id];
+    if (q && !Number.isFinite(q.value)) {
+      return `Wait until ${q.symbol} has been measured: keep the simulation running for at least one full cycle.`;
+    }
+  }
+  return null;
 }
 
 /**

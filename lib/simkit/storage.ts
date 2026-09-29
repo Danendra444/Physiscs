@@ -16,6 +16,8 @@ export interface SimProgress {
   axes: { x: string; y: string } | null;
   explanation: string;
   freePlay: boolean;
+  /** Typed by the student for the hand-in page; stays in their browser. */
+  studentName: string;
 }
 
 export interface ProgressStore {
@@ -37,6 +39,7 @@ export function emptyProgress(): SimProgress {
     axes: null,
     explanation: "",
     freePlay: false,
+    studentName: "",
   };
 }
 
@@ -53,7 +56,8 @@ function isProgress(value: unknown): value is SimProgress {
     Array.isArray(v.rows) &&
     (v.axes === null || typeof v.axes === "object") &&
     typeof v.explanation === "string" &&
-    typeof v.freePlay === "boolean"
+    typeof v.freePlay === "boolean" &&
+    typeof v.studentName === "string"
   );
 }
 
