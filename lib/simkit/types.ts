@@ -177,6 +177,8 @@ export interface SimDefinition<S = unknown> {
   recordable: string[];
   derivedColumns: DerivedColumn[];
   events?: (state: S, params: Params) => SimEvent | null;
+  /** Reason a reading can't be recorded right now (e.g. "the string is cut"), or null if it can. */
+  recordBlocker?: (state: S, params: Params) => string | null;
   applyAction?: (actionId: string, state: S, params: Params) => S;
   render: (ctx: CanvasRenderingContext2D, state: S, params: Params, view: ViewInfo) => void;
   /** Text description of the canvas for screen readers. */
