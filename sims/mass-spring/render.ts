@@ -64,12 +64,12 @@ export function render(ctx: CanvasRenderingContext2D, s: SpringState, p: Params,
 
   // Vectors
   const arrowY = floorY - blockSize - 16;
-  if (view.toggles.velocity) {
+  if (view.toggles.velocity && Math.abs(s.v) > 1e-3) {
     const vScale = (width * 0.12) / Math.max(0.05, p.A * Math.sqrt(p.k / p.m));
     drawArrow(ctx, massX, arrowY, massX + s.v * vScale, arrowY, colors.accent3);
     label(ctx, "v", massX + s.v * vScale + (s.v >= 0 ? 8 : -16), arrowY, colors.accent3);
   }
-  if (view.toggles.acceleration) {
+  if (view.toggles.acceleration && Math.abs(accelerationOf(s, p)) > 1e-3) {
     const aMax = Math.max(0.05, (p.k * p.A) / p.m);
     const aScale = (width * 0.12) / aMax;
     const a = accelerationOf(s, p);

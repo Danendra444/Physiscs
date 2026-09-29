@@ -3,8 +3,8 @@ import { activity, theory } from "./content";
 import { cut, initialState, step, type WhirlState } from "./physics";
 import { render } from "./render";
 
-/** Once released, the event fires when the bung is this many radii from the centre. */
-const FLY_OFF_FACTOR = 2.2;
+/** Once released, the event fires when the bung is this far from the centre (m): off-screen at any radius. */
+const FLY_OFF_DISTANCE = 2;
 
 export const centripetalForce: SimDefinition<WhirlState> = {
   slug: "centripetal-force",
@@ -41,8 +41,8 @@ export const centripetalForce: SimDefinition<WhirlState> = {
     { id: "omega2", label: "ω²", unit: "rad² s⁻²", compute: (r) => r.omega * r.omega },
     { id: "invr", label: "1/r", unit: "m⁻¹", compute: (r) => 1 / r.r },
   ],
-  events: (s, p) =>
-    s.released && Math.hypot(s.x, s.y) > FLY_OFF_FACTOR * p.r
+  events: (s) =>
+    s.released && Math.hypot(s.x, s.y) > FLY_OFF_DISTANCE
       ? {
           kind: "flew-off",
           message:

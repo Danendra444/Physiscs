@@ -47,7 +47,10 @@ export function SimPage({ slug }: { slug: string }) {
     const now = handle.current();
     if (!now || playLocked) return;
     const readouts = sim.readouts(now.state, now.params);
-    if (recordBlockReason(sim, now.state, now.params, readouts)) return;
+    if (recordBlockReason(sim, now.state, now.params, readouts)) {
+      handle.refresh();
+      return;
+    }
     const row = makeRow(sim, now.params, readouts);
     update((p) => ({ ...p, rows: [...p.rows, row] }));
   };
@@ -61,7 +64,7 @@ export function SimPage({ slug }: { slug: string }) {
           </p>
         )}
 
-        <div className="grid gap-5 lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)]">
+        <div className="grid grid-cols-1 gap-5 lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)]">
           <section className="card space-y-4 p-4" aria-label="Simulation">
             <SimCanvas sim={sim} handle={handle} toggles={toggles} />
             {handle.event && (
@@ -125,7 +128,7 @@ export function SimPage({ slug }: { slug: string }) {
           </section>
         )}
 
-        <div className="grid gap-5 lg:grid-cols-2">
+        <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
           <section className="card p-4" aria-labelledby="data-heading">
             <h2 id="data-heading" className="mb-3 font-semibold">
               Data table

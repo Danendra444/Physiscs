@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Engine } from "@/lib/simkit/loop";
 import { recordBlockReason } from "@/lib/simkit/recorder";
 import type { AnySim, Params, Readouts, SimEvent } from "@/lib/simkit/types";
@@ -24,8 +24,6 @@ function snapshot(sim: AnySim, state: unknown, params: Params, running: boolean,
   return { readouts, running, event, recordBlock: recordBlockReason(sim, state, params, readouts) };
 }
 
-const defaults = (sim: AnySim): Params => Object.fromEntries(sim.params.map((p) => [p.id, p.default]));
-
 /**
  * Owns the simulation engine and drives it with requestAnimationFrame.
  * The engine lives in a ref, outside React state, so animation never waits for re-renders;
@@ -35,13 +33,14 @@ export function useSimEngine(sim: AnySim, params: Params) {
   const engineRef = useRef<Engine<unknown> | null>(null);
   const listeners = useRef(new Set<FrameListener>());
   const dirty = useRef(true);
+  const paramsRef = useRef(params);
   const [snap, setSnap] = useState<EngineSnapshot>(() =>
     snapshot(sim, sim.initialState(params), params, false, null),
   );
 
   // Create the engine and run the animation loop.
   useEffect(() => {
-    const engine = new Engine<unknown>(sim, defaults(sim));
+    const engine = new Engine<unknown>(sim, paramsRef.current);
     engineRef.current = engine;
     engine.onEvent = () => {
       dirty.current = true;
@@ -68,7 +67,9 @@ export function useSimEngine(sim: AnySim, params: Params) {
   }, [sim]);
 
   // Parameters changed: restart from the new initial conditions (keeps playing if it was).
-  useEffect(() => {
+  // A layout effect runs before the next animation frame, so no frame can publish stale values.
+  useLayoutEffect(() => {
+    paramsRef.current = params;
     engineRef.current?.setParams(params);
     dirty.current = true;
   }, [params]);
@@ -97,6 +98,8 @@ export function useSimEngine(sim: AnySim, params: Params) {
     pause: () => command((e) => e.pause()),
     reset: () => command((e) => e.reset()),
     action: (id: string) => command((e) => e.action(id)),
+    /** Re-publish the snapshot on the next frame (e.g. after a rejected action). */
+    refresh: () => command(() => {}),
     addFrameListener,
     current,
   };

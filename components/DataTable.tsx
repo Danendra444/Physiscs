@@ -33,7 +33,7 @@ export function DataTable({ columns, rows, onDelete, onClear, fileName = "data" 
 
   return (
     <div>
-      <div className="overflow-x-auto">
+      <div className="relative overflow-x-auto">
         <table className="w-full border-collapse text-sm" data-testid="data-table">
           <thead>
             <tr className="border-b border-line text-left">

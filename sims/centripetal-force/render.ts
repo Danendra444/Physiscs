@@ -49,8 +49,9 @@ export function render(ctx: CanvasRenderingContext2D, s: WhirlState, p: Params, 
     label(ctx, "v", bx + (s.vx / v) * (len + 12), by - (s.vy / v) * (len + 12), colors.accent3, { align: "center" });
   }
   if (view.toggles.acceleration && !s.released) {
+    // Square-root scaling keeps both small and large accelerations visible.
     const aMax = MAX_SPEED ** 2 / 0.2;
-    const len = Math.max(14, unit * Math.sqrt((p.v * p.v) / p.r / aMax));
+    const len = Math.max(16, unit * 1.6 * Math.sqrt((p.v * p.v) / p.r / aMax));
     const r = Math.hypot(s.x, s.y);
     drawArrow(ctx, bx, by, bx - (s.x / r) * len, by + (s.y / r) * len, colors.accent2, { dashed: true });
     label(ctx, "a", bx - (s.x / r) * (len + 12), by + (s.y / r) * (len + 12), colors.accent2, { align: "center" });
