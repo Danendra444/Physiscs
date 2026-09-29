@@ -88,7 +88,9 @@ export class Engine<S> {
     this.onEvent?.(event);
   }
 
+  /** Every numeric field of the state must be finite (null fields, e.g. "not measured yet", are fine). */
   private isFinite(state: S): boolean {
-    return Object.values(this.sim.readouts(state, this.params)).every((q) => Number.isFinite(q.value));
+    if (typeof state !== "object" || state === null) return true;
+    return Object.values(state).every((v) => typeof v !== "number" || Number.isFinite(v));
   }
 }

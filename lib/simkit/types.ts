@@ -84,6 +84,7 @@ export interface ViewInfo {
 
 /** Values sampled every frame for a live time graph (e.g. x–t for an oscillator). */
 export interface LiveSeriesSpec<S> {
+  id: string;
   title: string;
   yLabel: string;
   series: { id: string; label: string; color: keyof Palette }[];
@@ -180,7 +181,8 @@ export interface SimDefinition<S = unknown> {
   render: (ctx: CanvasRenderingContext2D, state: S, params: Params, view: ViewInfo) => void;
   /** Text description of the canvas for screen readers. */
   canvasLabel: string;
-  liveSeries?: LiveSeriesSpec<S>;
+  /** Live time graphs shown under the canvas (the student picks one at a time). */
+  liveSeries?: LiveSeriesSpec<S>[];
   content: { theory: TheoryContent; activity: ActivityDefinition };
 }
 
