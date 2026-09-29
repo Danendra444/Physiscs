@@ -1,4 +1,7 @@
+import { browserBackend, createStore, type KeyValueBackend, type Store } from "../store";
 import type { Row } from "./types";
+
+export type { KeyValueBackend };
 
 // Progress is saved through this small interface. v1 uses the browser's
 // localStorage; a database adapter (Supabase, Firebase, Apps Script…) can
@@ -20,15 +23,7 @@ export interface SimProgress {
   studentName: string;
 }
 
-export interface ProgressStore {
-  /** False when saving is impossible (private mode, blocked storage). The site still works. */
-  available: boolean;
-  load(slug: string): SimProgress | null;
-  save(slug: string, progress: SimProgress): void;
-  clear(slug: string): void;
-}
-
-export type KeyValueBackend = Pick<Storage, "getItem" | "setItem" | "removeItem">;
+export type ProgressStore = Store<SimProgress>;
 
 export function emptyProgress(): SimProgress {
   return {
@@ -42,8 +37,6 @@ export function emptyProgress(): SimProgress {
     studentName: "",
   };
 }
-
-const keyFor = (slug: string) => `physlab:v${SCHEMA_VERSION}:${slug}`;
 
 function isProgress(value: unknown): value is SimProgress {
   if (typeof value !== "object" || value === null) return false;
@@ -61,58 +54,12 @@ function isProgress(value: unknown): value is SimProgress {
   );
 }
 
-function probe(backend: KeyValueBackend): boolean {
-  try {
-    const key = "physlab:probe";
-    backend.setItem(key, "1");
-    backend.removeItem(key);
-    return true;
-  } catch {
-    return false;
-  }
-}
-
+// Keys stay "physlab:v1:<slug>" so students' saved simulation progress survives refactors.
 export function createLocalStore(backend: KeyValueBackend | null): ProgressStore {
-  const available = backend !== null && probe(backend);
-
-  return {
-    available,
-    load(slug) {
-      if (!available || !backend) return null;
-      try {
-        const raw = backend.getItem(keyFor(slug));
-        if (raw === null) return null;
-        const parsed: unknown = JSON.parse(raw);
-        return isProgress(parsed) ? parsed : null;
-      } catch {
-        return null;
-      }
-    },
-    save(slug, progress) {
-      if (!available || !backend) return;
-      try {
-        backend.setItem(keyFor(slug), JSON.stringify(progress));
-      } catch {
-        // Quota exceeded or storage revoked mid-session: keep working in memory.
-      }
-    },
-    clear(slug) {
-      if (!available || !backend) return;
-      try {
-        backend.removeItem(keyFor(slug));
-      } catch {
-        // Ignore, same as save.
-      }
-    },
-  };
+  return createStore<SimProgress>(backend, { prefix: `physlab:v${SCHEMA_VERSION}:`, validate: isProgress });
 }
 
-/** The store used by the site: localStorage when the browser allows it. */
+/** The store used by the simulation pages: localStorage when the browser allows it. */
 export function browserStore(): ProgressStore {
-  if (typeof window === "undefined") return createLocalStore(null);
-  try {
-    return createLocalStore(window.localStorage);
-  } catch {
-    return createLocalStore(null);
-  }
+  return createLocalStore(browserBackend());
 }

@@ -1,0 +1,204 @@
+## Angular measure and angular velocity
+
+An object moving along a circle is easiest to describe using **angles** instead of distances. Physicists measure angles in radians because it makes the equations simple.
+
+<Definition term="Radian">
+One radian is the angle subtended at the centre of a circle by an arc that is equal in length to the radius of the circle.
+</Definition>
+
+The circumference of a circle is $2\pi r$, so one complete circle is $2\pi$ radians:
+
+$$
+360^\circ = 2\pi\ \text{rad} \qquad\text{so}\qquad 1\ \text{rad} \approx 57.3^\circ
+$$
+
+<KeyEquation
+  tex="s = r\theta"
+  where="s | length of the arc | m
+r | radius of the circle | m
+\theta | angle at the centre | rad" />
+
+The **angular velocity** $\omega$ tells you how quickly the angle changes. If the object turns through an angle $\Delta\theta$ in a time $\Delta t$, then $\omega = \Delta\theta / \Delta t$. One full turn takes one period $T$, and $f = 1/T$ is the number of turns per second.
+
+<KeyEquation
+  tex="\omega = \dfrac{\Delta\theta}{\Delta t} = \dfrac{2\pi}{T} = 2\pi f"
+  where="\omega | angular velocity | rad s⁻¹
+\Delta\theta | angle turned through | rad
+T | period (time for one revolution) | s
+f | frequency (revolutions per second) | Hz" />
+
+The speed along the circle is linked to the angular velocity by the radius:
+
+<KeyEquation
+  tex="v = r\omega"
+  where="v | linear speed along the circle | m s⁻¹
+r | radius of the circle | m
+\omega | angular velocity | rad s⁻¹" />
+
+Two points on the same turntable have the **same** $\omega$, but the point further from the centre has a larger $v$ because $v = r\omega$.
+
+<CommonMistake>
+Always set your calculator to **radians** for these equations, and convert revolutions per minute first:
+
+$$
+1\ \text{rev min}^{-1} = \dfrac{2\pi}{60}\ \text{rad s}^{-1}
+$$
+
+A very common lost mark is using $\omega = 45$ instead of converting 45 revolutions per minute to radians per second.
+</CommonMistake>
+
+<SelfCheck
+  id="unit-omega"
+  question="Which is the SI unit of angular velocity?"
+  options="m s⁻¹
+rad s⁻¹
+Hz
+rad"
+  answer={1}
+  explanation="Angular velocity is angle per unit time, so the unit is radians per second. Hz is used for frequency, and m s⁻¹ is for linear speed." />
+
+<SelfCheck
+  id="wheel-omega"
+  question="A wheel turns at 45 revolutions per minute. Calculate its angular velocity."
+  answer={4.712}
+  unit="rad s⁻¹"
+  tolerancePct={2}
+  explanation="One revolution is $2\pi$ rad and one minute is 60 s, so $\omega = \dfrac{45 \times 2\pi}{60} = 4.71\ \text{rad s}^{-1}$." />
+
+<WorkedExample
+  title="Angular velocity, speed and tension"
+  marks={5}
+  steps="(a) Use $\omega = \dfrac{2\pi}{T}$ with $T = 0.50\ \text{s}$.
+$\omega = \dfrac{2\pi}{0.50} = 12.6\ \text{rad s}^{-1}$
+(b) Use $v = r\omega$. Keep the unrounded value $12.566$ to avoid rounding errors.
+$v = 0.80 \times 12.566 = 10.1\ \text{m s}^{-1}$
+(c) The tension in the string provides the centripetal force: $F = mr\omega^2$.
+$F = 0.050 \times 0.80 \times (12.566)^2 = 6.32\ \text{N}$"
+>
+A rubber bung of mass 0.050 kg moves in a horizontal circle of radius 0.80 m on the end of a string, at constant speed. It completes one revolution in 0.50 s. Ignore the weight of the bung, so the string is horizontal.
+
+Calculate **(a)** the angular velocity, **(b)** the speed, and **(c)** the tension in the string.
+</WorkedExample>
+
+## Centripetal acceleration
+
+Velocity is a vector: it has a direction as well as a size. An object moving round a circle at constant speed keeps changing direction, so its **velocity is changing**, which means it is **accelerating**.
+
+The acceleration points towards the centre of the circle, at right angles to the velocity, and has size:
+
+<KeyEquation
+  tex="a = \dfrac{v^2}{r} = r\omega^2"
+  where="a | centripetal acceleration | m s⁻²
+v | linear speed | m s⁻¹
+r | radius of the circle | m
+\omega | angular velocity | rad s⁻¹" />
+
+You can get the second form from the first by substituting $v = r\omega$: $\dfrac{(r\omega)^2}{r} = r\omega^2$.
+
+<CommonMistake>
+"Constant speed" does **not** mean "no acceleration". Speed is constant, but velocity is not, because its direction keeps changing. Circular motion at constant speed always has an acceleration towards the centre.
+</CommonMistake>
+
+<SelfCheck
+  id="centripetal-acceleration"
+  question="A car travels at 20 m s⁻¹ round a bend of radius 40 m. Calculate its centripetal acceleration."
+  answer={10}
+  unit="m s⁻²"
+  tolerancePct={2}
+  explanation="$a = \dfrac{v^2}{r} = \dfrac{20^2}{40} = 10\ \text{m s}^{-2}$, directed towards the centre of the bend." />
+
+## Centripetal force
+
+By Newton's second law, an acceleration needs a resultant force in the same direction. So an object in circular motion needs a resultant force towards the centre, called the **centripetal force**:
+
+<KeyEquation
+  tex="F = ma = \dfrac{mv^2}{r} = mr\omega^2"
+  where="F | resultant force towards the centre | N
+m | mass of the object | kg
+v | linear speed | m s⁻¹
+r | radius of the circle | m
+\omega | angular velocity | rad s⁻¹" />
+
+The centripetal force is **not a new kind of force**. It is the name for the resultant of whatever real forces point towards the centre. In each situation, decide which real force does the job:
+
+- a bung whirled on a string: the **tension** in the string
+- a car on a flat bend: the **friction** between the tyres and the road
+- a satellite or planet in orbit: the **gravitational force**
+
+Because the centripetal force is always at right angles to the velocity, it does **no work**. It changes the direction of the velocity but not the speed.
+
+<CommonMistake>
+Do not draw "centripetal force" as an extra arrow on a free-body diagram. Draw the real forces (tension, friction, weight, gravity…) and say that their resultant towards the centre is the centripetal force. Also avoid "centrifugal force": in this syllabus there is no outward force. An object that leaves the circle moves in a straight line along the tangent.
+</CommonMistake>
+
+<TrySim slug="centripetal-force" />
+
+<WorkedExample
+  title="A car on a bend"
+  marks={3}
+  steps="Friction between the tyres and the road provides the centripetal force.
+At the maximum speed the force is at its limit: $F = \dfrac{mv^2}{r}$, so $v^2 = \dfrac{Fr}{m}$.
+$v^2 = \dfrac{6000 \times 50}{1200} = 250\ \text{m}^2\ \text{s}^{-2}$
+$v = \sqrt{250} = 15.8\ \text{m s}^{-1}$ (about 57 $\text{km h}^{-1}$)"
+>
+A car of mass 1200 kg drives round a flat circular bend of radius 50 m. The greatest sideways friction force the tyres can exert on the road is 6.0 kN.
+
+Calculate the maximum speed at which the car can take the bend without skidding.
+</WorkedExample>
+
+<WorkedExample
+  title="A ball in a vertical circle"
+  marks={4}
+  steps="At the lowest point the tension $T$ acts upwards, towards the centre, and the weight $mg$ acts downwards, away from the centre.
+The resultant force towards the centre is the centripetal force: $T - mg = \dfrac{mv^2}{r}$.
+$T = m\left(g + \dfrac{v^2}{r}\right) = 0.20 \times \left(9.81 + \dfrac{4.0^2}{0.60}\right)$
+$T = 0.20 \times 36.48 = 7.3\ \text{N}$"
+>
+A ball of mass 0.20 kg on a string is swung in a vertical circle of radius 0.60 m. At the lowest point of the circle its speed is 4.0 m s⁻¹. Calculate the tension in the string at this point. Use $g = 9.81\ \text{m s}^{-2}$.
+
+The speed changes round a vertical circle, but at any instant the resultant force towards the centre is still $mv^2/r$.
+</WorkedExample>
+
+<SelfCheck
+  id="resultant-direction"
+  question="An object moves in a circle at constant speed. The resultant force acting on it is:"
+  options="zero, because its speed is constant
+directed along the velocity, in the direction of motion
+directed towards the centre of the circle
+directed away from the centre of the circle"
+  answer={2}
+  explanation="The velocity is changing direction, so there is an acceleration towards the centre, and therefore a resultant force towards the centre." />
+
+<SelfCheck
+  id="centripetal-force-value"
+  question="A 0.25 kg mass moves in a circle of radius 0.40 m with an angular velocity of 6.0 rad s⁻¹. Calculate the centripetal force."
+  answer={3.6}
+  unit="N"
+  tolerancePct={2}
+  explanation="$F = mr\omega^2 = 0.25 \times 0.40 \times 6.0^2 = 3.6\ \text{N}$." />
+
+<SelfCheck
+  id="double-speed"
+  question="The speed of an object moving in a circle of fixed radius is doubled. The centripetal force needed becomes:"
+  options="twice as large
+four times as large
+half as large
+one quarter as large"
+  answer={1}
+  explanation="$F = \dfrac{mv^2}{r}$, so $F \propto v^2$. Doubling $v$ multiplies $F$ by $2^2 = 4$." />
+
+<ExamTip>
+For a question that asks you to explain why an object moving at constant speed in a circle is accelerating, write three points: the **velocity changes** because its direction changes; so there is an **acceleration**; and it is directed **towards the centre**, so there must be a resultant force towards the centre. Then name the real force that provides it.
+</ExamTip>
+
+## Check your understanding
+
+<Checklist
+  items="radian | I can define the radian and convert between degrees, radians and revolutions.
+omega | I can use $\omega = \dfrac{2\pi}{T} = 2\pi f$ and $v = r\omega$.
+accelerating | I can explain why an object moving at constant speed in a circle is accelerating.
+a-formula | I can use $a = \dfrac{v^2}{r} = r\omega^2$ and state the direction of the acceleration.
+f-formula | I can use $F = \dfrac{mv^2}{r} = mr\omega^2$.
+provider | I can identify which real force provides the centripetal force in a situation.
+no-work | I can explain why the centripetal force does no work.
+tangent | I can describe the path of an object when the centripetal force is removed." />

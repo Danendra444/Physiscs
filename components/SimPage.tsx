@@ -3,7 +3,7 @@
 import { useMemo, useState } from "react";
 import { columnsFor, makeRow, recordBlockReason } from "@/lib/simkit/recorder";
 import type { Params } from "@/lib/simkit/types";
-import { getSim } from "@/sims/registry";
+import { getSim, getTopic } from "@/sims/registry";
 import { ActivityPanel, revealKey } from "./ActivityPanel";
 import { Controls } from "./Controls";
 import { DataGraph } from "./DataGraph";
@@ -149,7 +149,10 @@ export function SimPage({ slug }: { slug: string }) {
           </section>
         </div>
 
-        <TheoryPanel theory={sim.content.theory} />
+        <TheoryPanel
+          theory={sim.content.theory}
+          notesHref={getTopic(sim.topic)?.hasNotes ? `/topics/${sim.topic}/notes/` : undefined}
+        />
       </div>
 
       <HandIn sim={sim} progress={progress} columns={columns} labels={labels} axes={axes} />

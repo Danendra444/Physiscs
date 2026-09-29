@@ -195,8 +195,12 @@ export type AnySim = SimDefinition<any>;
 
 export interface Topic {
   id: string;
+  /** Syllabus topic number in 9702 (1–25). */
   number: number;
   title: string;
+  /** Topics 1–11 are AS Level; 12–25 are the extra A Level topics. */
   level: "AS" | "A2";
   summary: string;
+  /** True when content/notes/<id>.mdx exists. Checked by tests/unit/notes-content.test.ts. */
+  hasNotes: boolean;
 }

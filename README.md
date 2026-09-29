@@ -1,6 +1,21 @@
 # Physics Sim Lab
 
-Free, open-source interactive physics simulations for **Cambridge International AS & A Level Physics (9702)**.
+Free, open-source revision site for **Cambridge International AS & A Level Physics (9702)**: notes, interactive simulations and virtual experiments. A question bank and mock tests are planned next (see the roadmap).
+
+## Notes
+
+Each topic with notes has one page with:
+
+- definitions in the wording mark schemes expect, and key equations with a table of symbols and units
+- worked examples that reveal one step at a time
+- common mistakes and exam tips
+- quick self-checks (multiple choice and numeric), marked instantly
+- an "I can…" checklist, and links to the matching simulations
+- a **Print notes** button for a clean revision sheet
+
+Self-check results and checklist ticks are saved in the student's own browser, and the topic page shows the totals. All notes are original writing.
+
+## Simulations
 
 Each simulation comes with a short guided activity:
 
@@ -11,8 +26,6 @@ Each simulation comes with a short guided activity:
 5. **Hand in**: download a PDF summary of your prediction, data, graph and explanation.
 
 There are no accounts. Progress is saved in the student's own browser.
-
-## Simulations
 
 | Topic (9702) | Simulation | What students discover |
 |---|---|---|
@@ -34,12 +47,15 @@ Then open http://localhost:3000.
 ## Tests
 
 ```bash
-npm test            # physics accuracy and logic tests (Vitest)
+npm test            # physics, notes-content and logic tests (Vitest)
 npm run build       # builds the static site into out/
-npm run test:e2e    # opens every simulation in a real browser (Playwright)
+npm run test:e2e    # opens every page in a real browser (Playwright)
+npm run notes:index # refreshes content/notes/index.json after editing a note
 ```
 
-The physics tests compare each simulation with the textbook formulas. For example, the orbit period must match 2π√(r³/GM) within 0.5%, and energy must stay constant within 0.1% when there's no damping.
+- The physics tests compare each simulation with the textbook formulas. For example, the orbit period must match 2π√(r³/GM) within 0.5%, and energy must stay constant within 0.1% when there's no damping.
+- The notes tests catch content mistakes before they go live: a wrong answer index, a duplicate id, a mistyped component name, or a link to a simulation that doesn't exist. Every number in a worked example or numeric self-check is also recomputed from the question and compared with the note.
+- The browser tests answer self-checks, reload to confirm progress is saved, check printing, and crawl every link on the site.
 
 ## Deploy to GitHub Pages
 
@@ -52,27 +68,34 @@ The workflow is in `.github/workflows/deploy.yml`.
 ## How the code is organised
 
 ```
-app/            pages (home, topic, simulation, about)
+app/            pages (home, topic hub, notes, simulation, about)
 components/     shared React UI: canvas, controls, activity, data table, graph, theory, hand-in
-lib/simkit/     the engine, with no React: time-step loop, recording, best-fit line, activity checks, storage
+components/notes/  the building blocks of a note: definitions, equations, worked examples, self-checks…
+content/notes/  one .mdx file per topic, plus a generated index.json
+lib/simkit/     the simulation engine, with no React: time-step loop, recording, best-fit line, activity checks
+lib/notes/      answer marking, notes progress, and the content scanner
+lib/store.ts    saving progress in the browser (shared by simulations and notes)
 sims/<slug>/    one folder per simulation
   physics.ts    the physics, as pure functions (unit-tested)
   render.ts     draws one frame on a canvas
   content.ts    theory text and the guided activity (all student-facing text)
   index.ts      puts it together as a SimDefinition
-sims/registry.ts  the list of topics and simulations
+sims/registry.ts  the full 9702 topic list and the list of simulations
 tests/unit/     Vitest tests
-tests/e2e/      Playwright smoke tests
+tests/e2e/      Playwright browser tests
+docs/           DESIGN.md (simulations) and NOTES-DESIGN.md (notes)
 ```
 
-Want to add a simulation? See [CONTRIBUTING.md](CONTRIBUTING.md).
+Want to add a simulation or a topic's notes? See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## Roadmap
 
-- More simulations across the 9702 syllabus
+- Question bank: exam-style questions by topic with mark schemes and worked solutions
+- Mock tests: timed practice papers built from the question bank
+- Notes for the other 22 topics, and more simulations across the 9702 syllabus
 - Challenge mode (goal-based puzzles, e.g. "put a satellite in geostationary orbit")
-- Optional teacher class codes backed by a database (only `lib/simkit/storage.ts` needs a new adapter)
-- Indonesian translation (all text already lives in `content.ts` files)
+- Optional teacher class codes backed by a database (only the store in `lib/store.ts` needs a new adapter)
+- Indonesian translation (all student-facing text lives in `content.ts` and `.mdx` files)
 - A visual design pass
 
 ## License

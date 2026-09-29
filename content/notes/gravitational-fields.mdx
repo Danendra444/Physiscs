@@ -1,0 +1,230 @@
+## Gravitational fields and field strength
+
+Masses attract each other without touching. We describe this with a **field**: a region of space where something feels a force.
+
+<Definition term="Gravitational field">
+A gravitational field is a region of space in which a mass experiences a force because of its gravitational attraction to another mass.
+</Definition>
+
+<Definition term="Gravitational field strength">
+The gravitational field strength at a point is the gravitational force exerted per unit mass on a small test mass placed at that point.
+</Definition>
+
+<KeyEquation
+  tex="g = \dfrac{F}{m}"
+  where="g | gravitational field strength | N kg⁻¹
+F | gravitational force on the mass | N
+m | the (small) test mass | kg" />
+
+Field strength is a **vector**: it points in the direction of the force, towards the mass creating the field. Its unit N kg⁻¹ is the same as m s⁻², which is why $g$ is also the acceleration of free fall.
+
+Near the surface of the Earth the field is nearly **uniform**: $g \approx 9.81\ \text{N kg}^{-1}$ everywhere in a small region, shown by parallel, equally spaced field lines. Over large distances the field is **radial**, with lines pointing towards the centre of the Earth, closer together where the field is stronger.
+
+## Newton's law of gravitation
+
+<Definition term="Newton's law of gravitation">
+The gravitational force between two point masses is directly proportional to the product of their masses and inversely proportional to the square of their separation.
+</Definition>
+
+<KeyEquation
+  tex="F = \dfrac{GMm}{r^2}"
+  where="F | gravitational force between the masses | N
+G | gravitational constant, 6.67 × 10⁻¹¹ | N m² kg⁻²
+M, m | the two masses | kg
+r | distance between the centres of the masses | m" />
+
+The force on each mass is the same size and opposite in direction (Newton's third law). Spherical objects such as planets act as if all their mass were at their centre, so $r$ is the distance **between centres**.
+
+Dividing $F = \dfrac{GMm}{r^2}$ by $m$ gives the field strength of a point mass (or a sphere) $M$ at distance $r$ from its centre:
+
+<KeyEquation
+  tex="g = \dfrac{GM}{r^2}"
+  where="g | gravitational field strength | N kg⁻¹
+G | gravitational constant | N m² kg⁻²
+M | mass creating the field | kg
+r | distance from the centre of the mass | m" />
+
+This is an **inverse-square law**: doubling the distance makes the field strength four times smaller.
+
+<CommonMistake>
+The distance $r$ is measured from the **centre** of the planet, not from its surface. For a satellite 400 km above the Earth, $r = R + 400\ \text{km}$, where $R$ is the radius of the Earth. Also remember that $g$ falls as $1/r^2$, not in proportion to $1/r$.
+</CommonMistake>
+
+<SelfCheck
+  id="g-value"
+  question="Calculate the gravitational field strength at a distance of 1.00 × 10⁷ m from the centre of the Earth. The mass of the Earth is 5.97 × 10²⁴ kg and $G = 6.67 \times 10^{-11}\ \text{N m}^2\ \text{kg}^{-2}$."
+  answer={3.98}
+  unit="N kg⁻¹"
+  tolerancePct={2}
+  explanation="$g = \dfrac{GM}{r^2} = \dfrac{6.67 \times 10^{-11} \times 5.97 \times 10^{24}}{(1.00 \times 10^{7})^2} = 3.98\ \text{N kg}^{-1}$." />
+
+<SelfCheck
+  id="g-double-r"
+  question="A satellite moves to twice its original distance from the centre of the Earth. The gravitational field strength at the satellite becomes:"
+  options="half as large
+one quarter as large
+twice as large
+four times as large"
+  answer={1}
+  explanation="$g \propto \dfrac{1}{r^2}$, so doubling $r$ divides $g$ by $2^2 = 4$." />
+
+<WorkedExample
+  title="Field strength above the Earth"
+  marks={3}
+  steps="The distance from the centre of the Earth is $r = R + h = 6.37 \times 10^6 + 4.00 \times 10^5 = 6.77 \times 10^6\ \text{m}$.
+$g = \dfrac{GM}{r^2} = \dfrac{6.67 \times 10^{-11} \times 5.97 \times 10^{24}}{(6.77 \times 10^6)^2}$
+$g = 8.69\ \text{N kg}^{-1}$
+This is about 89% of the value at the surface. Astronauts on the International Space Station are still strongly attracted to the Earth: they feel weightless because they are in free fall, not because gravity has gone."
+>
+The International Space Station orbits 4.00 × 10⁵ m above the surface of the Earth. Calculate the gravitational field strength there. Radius of the Earth = 6.37 × 10⁶ m, mass of the Earth = 5.97 × 10²⁴ kg.
+</WorkedExample>
+
+## Orbits of satellites
+
+A satellite in a **circular orbit** is in free fall around the planet. The gravitational force is the only force on it, and it provides the centripetal force:
+
+$$
+\dfrac{GMm}{r^2} = \dfrac{mv^2}{r}
+$$
+
+The mass $m$ of the satellite cancels, so the orbit does not depend on how heavy the satellite is. Rearranging gives the orbital speed. Using $v = \dfrac{2\pi r}{T}$ then gives the period:
+
+<KeyEquation
+  tex="v = \sqrt{\dfrac{GM}{r}} \qquad\qquad T^2 = \dfrac{4\pi^2}{GM}\,r^3"
+  where="v | orbital speed | m s⁻¹
+T | orbital period | s
+r | radius of the orbit (from the centre of the planet) | m
+M | mass of the planet | kg
+G | gravitational constant | N m² kg⁻²" />
+
+The second equation is **Kepler's third law**: $T^2 \propto r^3$. A graph of $T^2$ against $r^3$ is a straight line through the origin with gradient $\dfrac{4\pi^2}{GM}$. Notice that higher orbits are **slower** and have a **longer period**.
+
+<TrySim slug="satellite-orbits" />
+
+<WorkedExample
+  title="Speed and period of a satellite"
+  marks={4}
+  steps="Gravity provides the centripetal force, so $v = \sqrt{\dfrac{GM}{r}}$.
+$v = \sqrt{\dfrac{6.67 \times 10^{-11} \times 5.97 \times 10^{24}}{7.00 \times 10^{6}}} = 7.54 \times 10^{3}\ \text{m s}^{-1}$
+The satellite travels one circumference $2\pi r$ in one period: $T = \dfrac{2\pi r}{v}$.
+$T = \dfrac{2\pi \times 7.00 \times 10^{6}}{7.54 \times 10^{3}} = 5.83 \times 10^{3}\ \text{s}$ (about 1.62 hours)"
+>
+A satellite is in a circular orbit of radius 7.00 × 10⁶ m around the Earth. Calculate its orbital speed and its period. Mass of the Earth = 5.97 × 10²⁴ kg.
+</WorkedExample>
+
+### Geostationary orbits
+
+A **geostationary satellite** stays above the same point on the Earth's surface. It is useful for satellite television and communications, because a dish can point at it without moving. To do this it must:
+
+- orbit **above the equator**
+- move in the **same direction** as the Earth spins (west to east)
+- have a period of **24 hours**, the same as the Earth's rotation
+
+Because the period is fixed, Kepler's third law fixes the radius of the orbit too.
+
+<WorkedExample
+  title="The geostationary orbit"
+  marks={4}
+  steps="The period is 24 hours: $T = 24 \times 3600 = 86\,400\ \text{s}$.
+Rearrange $T^2 = \dfrac{4\pi^2}{GM}r^3$ to get $r^3 = \dfrac{GMT^2}{4\pi^2}$.
+$r^3 = \dfrac{6.67 \times 10^{-11} \times 5.97 \times 10^{24} \times (86\,400)^2}{4\pi^2} = 7.53 \times 10^{22}\ \text{m}^3$
+$r = 4.22 \times 10^{7}\ \text{m}$ from the centre of the Earth.
+Height above the surface: $4.223 \times 10^{7} - 6.37 \times 10^{6} = 3.59 \times 10^{7}\ \text{m}$ (about 36 000 km), using the unrounded radius.
+A sidereal day is 23 h 56 min. Using it instead changes $r$ by less than 0.2%."
+>
+Calculate the radius of the orbit of a geostationary satellite around the Earth, and its height above the surface. Mass of the Earth = 5.97 × 10²⁴ kg, radius of the Earth = 6.37 × 10⁶ m.
+</WorkedExample>
+
+<CommonMistake>
+A satellite does not "escape gravity" or "float because there is no gravity". Gravity is what keeps it in orbit. The satellite is constantly falling towards the Earth but moving sideways fast enough that it keeps missing it. Answers that say "there is no gravity in space" score no marks.
+</CommonMistake>
+
+<SelfCheck
+  id="orbit-speed-r4"
+  question="A satellite moves from one circular orbit to another with four times the radius. Its orbital speed becomes:"
+  options="four times as large
+twice as large
+half as large
+one quarter as large"
+  answer={2}
+  explanation="$v = \sqrt{\dfrac{GM}{r}}$, so $v \propto \dfrac{1}{\sqrt{r}}$. Four times the radius gives $\dfrac{1}{\sqrt{4}} = \dfrac{1}{2}$ of the speed." />
+
+<SelfCheck
+  id="kepler-ratio"
+  question="Satellite A orbits a planet with a period of 2.0 hours. Satellite B orbits the same planet with four times the orbital radius of A. Calculate the period of B."
+  answer={16}
+  unit="hours"
+  tolerancePct={2}
+  explanation="$T^2 \propto r^3$, so $T \propto r^{3/2}$. With $r$ multiplied by 4, $T$ is multiplied by $4^{3/2} = 8$. So $T = 8 \times 2.0 = 16$ hours." />
+
+## Gravitational potential and energy
+
+Because the gravitational force changes with distance, we need a different approach to talk about energy in a gravitational field. We choose **infinity** as the place where the potential is zero.
+
+<Definition term="Gravitational potential">
+The gravitational potential at a point is the work done per unit mass in bringing a small test mass from infinity to that point.
+</Definition>
+
+<KeyEquation
+  tex="\phi = -\dfrac{GM}{r}"
+  where="\phi | gravitational potential | J kg⁻¹
+G | gravitational constant | N m² kg⁻²
+M | mass creating the field | kg
+r | distance from the centre of the mass | m" />
+
+Potential is **negative** everywhere, because gravity is attractive: the field itself does work as the mass comes in from infinity, so the potential falls below the zero at infinity. It is a **scalar**, so it has no direction. The closer you are to the mass, the more negative it is.
+
+The gravitational potential energy of a mass $m$ at that point is $E_\text{p} = m\phi = -\dfrac{GMm}{r}$, and when a mass moves between two points, $\Delta E_\text{p} = m\,\Delta\phi$.
+
+The field strength and the potential are linked: $g$ is the **negative of the gradient** of the potential–distance graph, $g = -\dfrac{\Delta\phi}{\Delta r}$. The minus sign shows that $g$ points in the direction in which the potential decreases.
+
+<CommonMistake>
+Do not drop the minus sign in $\phi = -\dfrac{GM}{r}$. Doing so gives a positive potential, which would mean the field pushes masses away. Remember also that "gaining potential energy" means becoming **less negative**: lifting a satellite to a higher orbit increases $E_\text{p}$, for example from $-6.25 \times 10^{7}$ to $-5.69 \times 10^{7}\ \text{J kg}^{-1}$ per unit mass.
+</CommonMistake>
+
+<WorkedExample
+  title="Energy to reach a higher orbit"
+  marks={4}
+  steps="The change in potential energy is $\Delta E_\text{p} = m\,\Delta\phi$, where $\Delta\phi = \phi_\text{final} - \phi_\text{initial}$.
+$\Delta\phi = -\dfrac{GM}{r_2} - \left(-\dfrac{GM}{r_1}\right) = GM\left(\dfrac{1}{r_1} - \dfrac{1}{r_2}\right)$
+$GM = 6.67 \times 10^{-11} \times 5.97 \times 10^{24} = 3.982 \times 10^{14}$, so $\Delta\phi = 3.982 \times 10^{14}\left(\dfrac{1}{6.37 \times 10^{6}} - \dfrac{1}{7.00 \times 10^{6}}\right) = 5.63 \times 10^{6}\ \text{J kg}^{-1}$
+$\Delta E_\text{p} = 1000 \times 5.63 \times 10^{6} = 5.63 \times 10^{9}\ \text{J}$
+This is only the increase in potential energy. Getting into orbit also requires kinetic energy, so the total energy needed is larger."
+>
+A satellite of mass 1000 kg is lifted from the surface of the Earth to a circular orbit of radius 7.00 × 10⁶ m. Calculate the increase in its gravitational potential energy. Mass of the Earth = 5.97 × 10²⁴ kg, radius of the Earth = 6.37 × 10⁶ m.
+</WorkedExample>
+
+<SelfCheck
+  id="potential-sign"
+  question="Why is the gravitational potential near a planet negative?"
+  options="Because the planet's mass is negative
+Because potential is defined as zero at infinity, and the field does work on a mass as it comes in from infinity
+Because gravity is a repulsive force
+Because potential energy always decreases with height"
+  answer={1}
+  explanation="Potential is zero at infinity by definition. Gravity is attractive, so the field does positive work as a mass approaches from infinity, and the potential falls below zero." />
+
+<SelfCheck
+  id="potential-surface"
+  question="Calculate the gravitational potential at the surface of the Earth. Take $GM = 3.98 \times 10^{14}\ \text{N m}^2\ \text{kg}^{-1}$ and the radius of the Earth as 6.37 × 10⁶ m. You can type numbers like -6.25e7 or −6.25×10^7."
+  answer={-62511617}
+  unit="J kg⁻¹"
+  tolerancePct={2}
+  explanation="$\phi = -\dfrac{GM}{r} = -\dfrac{3.98 \times 10^{14}}{6.37 \times 10^{6}} = -6.25 \times 10^{7}\ \text{J kg}^{-1}$. The sign matters: potential is negative." />
+
+<ExamTip>
+For orbit questions, start from the same line every time: "gravitational force provides the centripetal force", then write $\dfrac{GMm}{r^2} = \dfrac{mv^2}{r}$ (or $mr\omega^2$). Cross out the satellite's mass $m$, and substitute $v = \dfrac{2\pi r}{T}$ to get Kepler's third law. Examiners give marks for this reasoning even if you slip on the arithmetic.
+</ExamTip>
+
+## Check your understanding
+
+<Checklist
+  items="field | I can define a gravitational field and gravitational field strength.
+newton | I can state Newton's law of gravitation and use $F = \dfrac{GMm}{r^2}$.
+g-point | I can use $g = \dfrac{GM}{r^2}$ and explain why it follows an inverse-square law.
+orbit-speed | I can derive and use $v = \sqrt{\dfrac{GM}{r}}$ for a circular orbit.
+kepler | I can derive and use $T^2 = \dfrac{4\pi^2}{GM}r^3$.
+geostationary | I can describe the features of a geostationary orbit and calculate its radius.
+potential | I can define gravitational potential and use $\phi = -\dfrac{GM}{r}$.
+energy | I can find changes in potential energy using $\Delta E_\text{p} = m\,\Delta\phi$.
+gradient | I can explain that $g$ is the negative of the potential gradient." />

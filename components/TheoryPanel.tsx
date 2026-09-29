@@ -1,8 +1,9 @@
+import Link from "next/link";
 import type { TheoryContent } from "@/lib/simkit/types";
 import { MathBlock, MathText } from "./MathText";
 
 /** Key equations and explanations, collapsed by default so they don't crowd the simulation. */
-export function TheoryPanel({ theory }: { theory: TheoryContent }) {
+export function TheoryPanel({ theory, notesHref }: { theory: TheoryContent; notesHref?: string }) {
   return (
     <details className="card group p-4">
       <summary className="cursor-pointer list-none font-semibold">
@@ -29,6 +30,13 @@ export function TheoryPanel({ theory }: { theory: TheoryContent }) {
             </p>
           </section>
         ))}
+        {notesHref && (
+          <p className="text-sm">
+            <Link href={notesHref} className="text-accent underline-offset-2 hover:underline" data-testid="notes-link">
+              Read the full notes for this topic →
+            </Link>
+          </p>
+        )}
         <section>
           <h3 className="mb-1 font-medium">Cambridge 9702 learning outcomes</h3>
           <ul className="space-y-1 text-sm">

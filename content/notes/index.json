@@ -1,0 +1,258 @@
+{
+  "circular-motion": {
+    "headings": [
+      {
+        "id": "angular-measure-and-angular-velocity",
+        "text": "Angular measure and angular velocity"
+      },
+      {
+        "id": "centripetal-acceleration",
+        "text": "Centripetal acceleration"
+      },
+      {
+        "id": "centripetal-force",
+        "text": "Centripetal force"
+      },
+      {
+        "id": "check-your-understanding",
+        "text": "Check your understanding"
+      }
+    ],
+    "checks": [
+      {
+        "id": "unit-omega",
+        "kind": "choice"
+      },
+      {
+        "id": "wheel-omega",
+        "kind": "number"
+      },
+      {
+        "id": "centripetal-acceleration",
+        "kind": "number"
+      },
+      {
+        "id": "resultant-direction",
+        "kind": "choice"
+      },
+      {
+        "id": "centripetal-force-value",
+        "kind": "number"
+      },
+      {
+        "id": "double-speed",
+        "kind": "choice"
+      }
+    ],
+    "checklist": [
+      {
+        "id": "radian",
+        "text": "I can define the radian and convert between degrees, radians and revolutions."
+      },
+      {
+        "id": "omega",
+        "text": "I can use $\\omega = \\dfrac{2\\pi}{T} = 2\\pi f$ and $v = r\\omega$."
+      },
+      {
+        "id": "accelerating",
+        "text": "I can explain why an object moving at constant speed in a circle is accelerating."
+      },
+      {
+        "id": "a-formula",
+        "text": "I can use $a = \\dfrac{v^2}{r} = r\\omega^2$ and state the direction of the acceleration."
+      },
+      {
+        "id": "f-formula",
+        "text": "I can use $F = \\dfrac{mv^2}{r} = mr\\omega^2$."
+      },
+      {
+        "id": "provider",
+        "text": "I can identify which real force provides the centripetal force in a situation."
+      },
+      {
+        "id": "no-work",
+        "text": "I can explain why the centripetal force does no work."
+      },
+      {
+        "id": "tangent",
+        "text": "I can describe the path of an object when the centripetal force is removed."
+      }
+    ]
+  },
+  "gravitational-fields": {
+    "headings": [
+      {
+        "id": "gravitational-fields-and-field-strength",
+        "text": "Gravitational fields and field strength"
+      },
+      {
+        "id": "newtons-law-of-gravitation",
+        "text": "Newton's law of gravitation"
+      },
+      {
+        "id": "orbits-of-satellites",
+        "text": "Orbits of satellites"
+      },
+      {
+        "id": "gravitational-potential-and-energy",
+        "text": "Gravitational potential and energy"
+      },
+      {
+        "id": "check-your-understanding",
+        "text": "Check your understanding"
+      }
+    ],
+    "checks": [
+      {
+        "id": "g-value",
+        "kind": "number"
+      },
+      {
+        "id": "g-double-r",
+        "kind": "choice"
+      },
+      {
+        "id": "orbit-speed-r4",
+        "kind": "choice"
+      },
+      {
+        "id": "kepler-ratio",
+        "kind": "number"
+      },
+      {
+        "id": "potential-sign",
+        "kind": "choice"
+      },
+      {
+        "id": "potential-surface",
+        "kind": "number"
+      }
+    ],
+    "checklist": [
+      {
+        "id": "field",
+        "text": "I can define a gravitational field and gravitational field strength."
+      },
+      {
+        "id": "newton",
+        "text": "I can state Newton's law of gravitation and use $F = \\dfrac{GMm}{r^2}$."
+      },
+      {
+        "id": "g-point",
+        "text": "I can use $g = \\dfrac{GM}{r^2}$ and explain why it follows an inverse-square law."
+      },
+      {
+        "id": "orbit-speed",
+        "text": "I can derive and use $v = \\sqrt{\\dfrac{GM}{r}}$ for a circular orbit."
+      },
+      {
+        "id": "kepler",
+        "text": "I can derive and use $T^2 = \\dfrac{4\\pi^2}{GM}r^3$."
+      },
+      {
+        "id": "geostationary",
+        "text": "I can describe the features of a geostationary orbit and calculate its radius."
+      },
+      {
+        "id": "potential",
+        "text": "I can define gravitational potential and use $\\phi = -\\dfrac{GM}{r}$."
+      },
+      {
+        "id": "energy",
+        "text": "I can find changes in potential energy using $\\Delta E_\\text{p} = m\\,\\Delta\\phi$."
+      },
+      {
+        "id": "gradient",
+        "text": "I can explain that $g$ is the negative of the potential gradient."
+      }
+    ]
+  },
+  "oscillations": {
+    "headings": [
+      {
+        "id": "describing-oscillations",
+        "text": "Describing oscillations"
+      },
+      {
+        "id": "simple-harmonic-motion",
+        "text": "Simple harmonic motion"
+      },
+      {
+        "id": "energy-in-simple-harmonic-motion",
+        "text": "Energy in simple harmonic motion"
+      },
+      {
+        "id": "damping",
+        "text": "Damping"
+      },
+      {
+        "id": "forced-oscillations-and-resonance",
+        "text": "Forced oscillations and resonance"
+      },
+      {
+        "id": "check-your-understanding",
+        "text": "Check your understanding"
+      }
+    ],
+    "checks": [
+      {
+        "id": "shm-equilibrium",
+        "kind": "choice"
+      },
+      {
+        "id": "omega-from-f",
+        "kind": "number"
+      },
+      {
+        "id": "spring-period",
+        "kind": "number"
+      },
+      {
+        "id": "max-acceleration",
+        "kind": "number"
+      },
+      {
+        "id": "energy-amplitude",
+        "kind": "choice"
+      },
+      {
+        "id": "resonance",
+        "kind": "choice"
+      }
+    ],
+    "checklist": [
+      {
+        "id": "terms",
+        "text": "I can define displacement, amplitude, period and frequency, and use $\\omega = 2\\pi f$."
+      },
+      {
+        "id": "shm-define",
+        "text": "I can define simple harmonic motion and explain the minus sign in $a = -\\omega^2 x$."
+      },
+      {
+        "id": "shm-equations",
+        "text": "I can use $x = x_0\\sin\\omega t$, $v_0 = \\omega x_0$ and $v = \\pm\\omega\\sqrt{x_0^2 - x^2}$."
+      },
+      {
+        "id": "graphs",
+        "text": "I can sketch and interpret displacement, velocity and acceleration graphs and their phase relationships."
+      },
+      {
+        "id": "spring",
+        "text": "I can use $T = 2\\pi\\sqrt{m/k}$ and find $k$ from a $T^2$ against $m$ graph."
+      },
+      {
+        "id": "energy",
+        "text": "I can use the energy equations and sketch the energy graphs of SHM."
+      },
+      {
+        "id": "damping",
+        "text": "I can describe light, critical and heavy damping."
+      },
+      {
+        "id": "resonance",
+        "text": "I can define resonance and describe how damping affects the resonance curve."
+      }
+    ]
+  }
+}

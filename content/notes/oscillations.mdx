@@ -1,0 +1,231 @@
+## Describing oscillations
+
+An **oscillation** is a repeated movement to and fro about a fixed point, called the **equilibrium position**, where the resultant force on the object is zero. A mass on a spring, a pendulum and a vibrating guitar string are all oscillators.
+
+<Definition term="Displacement, amplitude, period and frequency">
+The **displacement** $x$ is the distance of the object from the equilibrium position, in a stated direction. The **amplitude** $x_0$ is the maximum displacement. The **period** $T$ is the time for one complete oscillation. The **frequency** $f$ is the number of complete oscillations per unit time.
+</Definition>
+
+<KeyEquation
+  tex="f = \dfrac{1}{T} \qquad\qquad \omega = 2\pi f = \dfrac{2\pi}{T}"
+  where="f | frequency | Hz
+T | period | s
+\omega | angular frequency | rad s⁻¹" />
+
+The angular frequency $\omega$ is the same idea as angular velocity in circular motion. One oscillation corresponds to $2\pi$ radians of phase.
+
+## Simple harmonic motion
+
+<Definition term="Simple harmonic motion (SHM)">
+Simple harmonic motion is an oscillation in which the acceleration of the object is directly proportional to its displacement from a fixed point, and is always directed towards that point.
+</Definition>
+
+This is written as one equation. The minus sign says the acceleration is **opposite** to the displacement.
+
+<KeyEquation
+  tex="a = -\omega^2 x"
+  where="a | acceleration | m s⁻²
+\omega | angular frequency | rad s⁻¹
+x | displacement from equilibrium | m" />
+
+If the object starts at the equilibrium position, the solutions are:
+
+<KeyEquation
+  tex="x = x_0 \sin \omega t \qquad\quad v = v_0 \cos \omega t \qquad\quad v_0 = \omega x_0"
+  where="x | displacement at time t | m
+x_0 | amplitude | m
+v | velocity at time t | m s⁻¹
+v_0 | maximum speed | m s⁻¹
+t | time | s" />
+
+The speed at any displacement is given by the next equation. It is largest at $x = 0$ (giving $v_0 = \omega x_0$) and zero at $x = \pm x_0$:
+
+<KeyEquation
+  tex="v = \pm\,\omega\sqrt{x_0^2 - x^2}"
+  where="v | speed at displacement x | m s⁻¹
+\omega | angular frequency | rad s⁻¹
+x_0 | amplitude | m
+x | displacement | m" />
+
+Three facts to remember from the graphs of $x$, $v$ and $a$ against time:
+
+- At the **ends** of the motion ($x = \pm x_0$): the speed is zero and the acceleration is at its **maximum**, $a_0 = \omega^2 x_0$.
+- At the **equilibrium position** ($x = 0$): the speed is at its **maximum** and the acceleration is **zero**.
+- The velocity graph is a **quarter of a cycle ahead** of the displacement graph, and the acceleration graph is **in antiphase** with the displacement graph.
+
+### Two common oscillators
+
+For a mass $m$ on a spring of spring constant $k$, the force is $F = -kx$, so $ma = -kx$, which matches $a = -\omega^2 x$ with $\omega^2 = \dfrac{k}{m}$:
+
+<KeyEquation
+  tex="T = 2\pi\sqrt{\dfrac{m}{k}}"
+  where="T | period of a mass–spring system | s
+m | mass | kg
+k | spring constant | N m⁻¹" />
+
+A simple pendulum of length $l$ also has SHM, but **only for small angles**, with $T = 2\pi\sqrt{\dfrac{l}{g}}$.
+
+<CommonMistake>
+The period of SHM does **not** depend on the amplitude. A larger amplitude means a longer journey, but the object also moves faster, so each oscillation takes the same time. Do not confuse the two angular quantities either: $\omega = 2\pi f$, so a frequency of 2.5 Hz is $\omega = 15.7\ \text{rad s}^{-1}$, not 2.5.
+</CommonMistake>
+
+<TrySim slug="mass-spring" />
+
+<WorkedExample
+  title="A mass on a spring"
+  marks={5}
+  steps="Angular frequency: $\omega = \sqrt{\dfrac{k}{m}} = \sqrt{\dfrac{20}{0.50}} = 6.32\ \text{rad s}^{-1}$.
+Period: $T = \dfrac{2\pi}{\omega} = \dfrac{2\pi}{6.32} = 0.993\ \text{s}$.
+Maximum speed: $v_0 = \omega x_0 = 6.32 \times 0.10 = 0.632\ \text{m s}^{-1}$.
+Maximum acceleration: $a_0 = \omega^2 x_0 = \dfrac{k}{m}x_0 = 40 \times 0.10 = 4.0\ \text{m s}^{-2}$.
+Total energy: $E = \tfrac{1}{2}kx_0^2 = 0.5 \times 20 \times 0.10^2 = 0.10\ \text{J}$. (You can check these values in the mass–spring simulation.)"
+>
+A mass of 0.50 kg on a spring of spring constant 20 N m⁻¹ oscillates with an amplitude of 0.10 m. Calculate **(a)** the period, **(b)** the maximum speed, **(c)** the maximum acceleration, and **(d)** the total energy of the oscillation.
+</WorkedExample>
+
+<WorkedExample
+  title="Speed at a given displacement"
+  marks={2}
+  steps="Use $v = \omega\sqrt{x_0^2 - x^2}$ with $x_0 = 5.0\ \text{cm} = 0.050\ \text{m}$ and $x = 3.0\ \text{cm} = 0.030\ \text{m}$.
+$v = 8.0 \times \sqrt{0.050^2 - 0.030^2} = 8.0 \times 0.040 = 0.32\ \text{m s}^{-1}$"
+>
+An object oscillates with SHM. Its angular frequency is 8.0 rad s⁻¹ and its amplitude is 5.0 cm. Calculate its speed when its displacement is 3.0 cm.
+</WorkedExample>
+
+<SelfCheck
+  id="shm-equilibrium"
+  question="An object moves with SHM. As it passes through the equilibrium position, its:"
+  options="speed is zero and its acceleration is maximum
+speed is maximum and its acceleration is zero
+speed and acceleration are both maximum
+speed and acceleration are both zero"
+  answer={1}
+  explanation="At $x = 0$, $a = -\omega^2 x = 0$, and all the energy is kinetic, so the speed is at its maximum." />
+
+<SelfCheck
+  id="omega-from-f"
+  question="An oscillator has a frequency of 2.5 Hz. Calculate its angular frequency."
+  answer={15.708}
+  unit="rad s⁻¹"
+  tolerancePct={2}
+  explanation="$\omega = 2\pi f = 2\pi \times 2.5 = 15.7\ \text{rad s}^{-1}$." />
+
+<SelfCheck
+  id="spring-period"
+  question="A mass of 2.0 kg hangs on a spring of spring constant 50 N m⁻¹. Calculate the period of its oscillations."
+  answer={1.2566}
+  unit="s"
+  tolerancePct={2}
+  explanation="$T = 2\pi\sqrt{\dfrac{m}{k}} = 2\pi\sqrt{\dfrac{2.0}{50}} = 1.26\ \text{s}$." />
+
+<SelfCheck
+  id="max-acceleration"
+  question="An object oscillates with SHM with angular frequency 5.0 rad s⁻¹ and amplitude 0.040 m. Calculate its maximum acceleration."
+  answer={1}
+  unit="m s⁻²"
+  tolerancePct={2}
+  explanation="$a_0 = \omega^2 x_0 = 5.0^2 \times 0.040 = 1.0\ \text{m s}^{-2}$." />
+
+<WorkedExample
+  title="Finding k from a graph"
+  marks={3}
+  steps="Start with $T = 2\pi\sqrt{\dfrac{m}{k}}$ and square both sides: $T^2 = \dfrac{4\pi^2}{k}\,m$.
+This has the form $y = \text{gradient} \times x$, so a graph of $T^2$ against $m$ is a straight line through the origin with gradient $\dfrac{4\pi^2}{k}$.
+$k = \dfrac{4\pi^2}{\text{gradient}} = \dfrac{4\pi^2}{1.97} = 20.0\ \text{N m}^{-1}$"
+>
+A student measures the period $T$ of a mass on a spring for several values of the mass $m$. The graph of $T^2$ against $m$ is a straight line through the origin with gradient 1.97 s² kg⁻¹. Determine the spring constant $k$.
+</WorkedExample>
+
+## Energy in simple harmonic motion
+
+Energy moves back and forth between kinetic energy and potential energy. Without damping, the total energy stays constant.
+
+<KeyEquation
+  tex="E_\text{k} = \tfrac{1}{2}m\omega^2\left(x_0^2 - x^2\right) \qquad E_\text{p} = \tfrac{1}{2}m\omega^2 x^2 \qquad E = \tfrac{1}{2}m\omega^2 x_0^2"
+  where="E_\text{k} | kinetic energy at displacement x | J
+E_\text{p} | potential energy at displacement x | J
+E | total energy | J
+m | mass | kg
+\omega | angular frequency | rad s⁻¹
+x_0 | amplitude | m" />
+
+For a mass on a spring, $m\omega^2 = k$, so the total energy is $E = \tfrac{1}{2}kx_0^2$. What the graphs look like:
+
+- **Energy against displacement:** $E_\text{p}$ is an upright parabola with its minimum at $x = 0$, $E_\text{k}$ is an upside-down parabola with its maximum at $x = 0$, and the total energy is a horizontal line. The two curves add up to the line at every value of $x$.
+- **Energy against time:** $E_\text{k}$ and $E_\text{p}$ both oscillate at **twice** the frequency of the oscillator itself, always adding up to the same total.
+
+Because $E \propto x_0^2$, doubling the amplitude makes the total energy **four** times larger, even though the period stays the same.
+
+<WorkedExample
+  title="Kinetic energy at half the amplitude"
+  marks={3}
+  steps="At displacement $x = \tfrac{1}{2}x_0$: $E_\text{p} = \tfrac{1}{2}m\omega^2 x^2 = \tfrac{1}{2}m\omega^2\left(\tfrac{x_0}{2}\right)^2 = \tfrac{1}{4}\left(\tfrac{1}{2}m\omega^2 x_0^2\right) = \tfrac{1}{4}E$.
+The total is constant, so $E_\text{k} = E - E_\text{p} = E - \tfrac{1}{4}E = \tfrac{3}{4}E$.
+The fraction is $\tfrac{3}{4}$, or 75%."
+>
+An object oscillates with SHM with total energy $E$. What fraction of $E$ is kinetic energy when the displacement is half the amplitude?
+</WorkedExample>
+
+<SelfCheck
+  id="energy-amplitude"
+  question="The amplitude of a mass–spring oscillator is doubled. The total energy of the oscillation becomes:"
+  options="twice as large
+four times as large
+unchanged
+half as large"
+  answer={1}
+  explanation="$E = \tfrac{1}{2}kx_0^2$, so $E \propto x_0^2$. Doubling the amplitude multiplies the energy by $2^2 = 4$." />
+
+## Damping
+
+In real oscillators, resistive forces such as air resistance and friction take energy from the system and transfer it to the surroundings as thermal energy.
+
+<Definition term="Damping">
+Damping is the loss of energy from an oscillating system, caused by resistive forces, so that the amplitude of the oscillations decreases.
+</Definition>
+
+There are three cases:
+
+- **Light damping:** the object still oscillates, but the amplitude decreases gradually. The period is almost unchanged.
+- **Critical damping:** the object returns to equilibrium in the **shortest possible time** and does **not** oscillate.
+- **Heavy damping:** the object returns to equilibrium **slowly**, without oscillating.
+
+Car suspensions and door closers are designed to be close to critical damping, so the system settles quickly without bouncing.
+
+## Forced oscillations and resonance
+
+A **free** oscillation happens when an object is displaced and then left alone. It oscillates at its **natural frequency** $f_0$. A **forced** oscillation happens when a periodic external force, with a **driving frequency** $f$, is applied. After the start-up, the system oscillates at the driving frequency.
+
+<Definition term="Resonance">
+Resonance occurs when the driving frequency equals the natural frequency of the system. The amplitude of the forced oscillations is then at its maximum, because the system absorbs energy from the driver most efficiently.
+</Definition>
+
+A graph of amplitude against driving frequency has a peak at $f = f_0$. **More damping** makes the peak **lower and broader** (less sharp).
+
+Resonance can be useful, for example tuning a radio circuit to a station or pushing a swing at the right moment. It can also be harmful, when it shakes buildings, bridges or machine parts apart. Damping is added to reduce the danger.
+
+<SelfCheck
+  id="resonance"
+  question="A system is driven by a periodic force. When does resonance occur?"
+  options="When the driving frequency is much larger than the natural frequency
+When the driving frequency equals the natural frequency
+When the damping is critical
+When the amplitude of the driving force is zero"
+  answer={1}
+  explanation="Resonance is the large-amplitude response that occurs when the driving frequency matches the natural frequency of the oscillator." />
+
+<ExamTip>
+When a question says "describe" the motion or a graph in SHM, quote values at the key points: at the ends, $v = 0$ and $a$ is maximum; at the middle, $v$ is maximum and $a = 0$. In damping questions, use the exact terms: light damping means the amplitude decreases gradually, and critical damping means the fastest return to equilibrium with no oscillation.
+</ExamTip>
+
+## Check your understanding
+
+<Checklist
+  items="terms | I can define displacement, amplitude, period and frequency, and use $\omega = 2\pi f$.
+shm-define | I can define simple harmonic motion and explain the minus sign in $a = -\omega^2 x$.
+shm-equations | I can use $x = x_0\sin\omega t$, $v_0 = \omega x_0$ and $v = \pm\omega\sqrt{x_0^2 - x^2}$.
+graphs | I can sketch and interpret displacement, velocity and acceleration graphs and their phase relationships.
+spring | I can use $T = 2\pi\sqrt{m/k}$ and find $k$ from a $T^2$ against $m$ graph.
+energy | I can use the energy equations and sketch the energy graphs of SHM.
+damping | I can describe light, critical and heavy damping.
+resonance | I can define resonance and describe how damping affects the resonance curve." />

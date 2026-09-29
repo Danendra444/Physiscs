@@ -35,30 +35,22 @@ Notes come first because every other module links back to them, and they are the
 
 | Route | Content |
 |---|---|
-| `/` | Syllabus map: all 25 topics grouped AS (1–11) / A Level (12–25); available modules shown per topic; the rest marked "coming soon" and not linked |
+| `/` | "Start revising" cards for the available topics, then the full syllabus map: all 25 topics grouped AS (1–11) / A Level (12–25); topics without content are dimmed and not linked |
 | `/topics/[topic]/` | Topic hub: overview, module tabs (Notes · Simulations, plus later modules), progress summary |
 | `/topics/[topic]/notes/` | Notes page |
 | `/sims/[slug]/` | Unchanged |
 
-`TOPICS` in `sims/registry.ts` grows to all 25 topics. Each topic gains `modules: { notes: boolean }`, and a topic counts as available when it has notes or at least one simulation. Only available topics get static pages.
+`TOPICS` in `sims/registry.ts` grows to all 25 topics. Each topic gains `hasNotes: boolean`, and a topic counts as available when it has notes or at least one simulation. Only available topics get static pages.
 
 **Cross-links:** notes embed `<TrySim slug>` cards. Each simulation's Theory panel gets a "Read the full notes" link when its topic has notes.
 
 ## 4. Content format
 
 - One MDX file per topic: `content/notes/<topic-id>.mdx`.
-- MDX setup follows the Next.js 16 guide: `@next/mdx`, `@mdx-js/loader`, `@mdx-js/react` and `@types/mdx`, with a root `mdx-components.tsx`, plus `remark-math` and `rehype-katex` passed **by string name** (required by Turbopack).
+- MDX setup follows the Next.js 16 guide: `@next/mdx`, `@mdx-js/loader`, `@mdx-js/react` and `@types/mdx`, with a root `mdx-components.tsx`, plus `remark-math`, `rehype-slug` (heading ids for the contents list) and `rehype-katex`, all passed **by string name** (required by Turbopack).
 - Pages load the file with a dynamic import: `await import(\`@/content/notes/${topic}.mdx\`)`, together with `generateStaticParams` and `dynamicParams = false`.
-- Each file exports its own metadata:
-  ```mdx
-  export const metadata = {
-    title: "Oscillations",
-    outcomes: ["17.1", "17.2", "17.3"],
-    checklist: [
-      { id: "shm-define", text: "I can define simple harmonic motion." },
-    ],
-  }
-  ```
+- A notes file has no metadata export. The title, level and summary come from `TOPICS` in `sims/registry.ts`, and the "I can…" checklist is a `<Checklist items="…" />` component inside the file, so everything a note contains is in one place.
+- Component props are plain strings and numbers, so no JavaScript has to be written in a note. Multi-line values put one item per line: `items="id | text"`, `options="…"`, `steps="…"` and `where="symbol | meaning | unit"`. Inside those quoted strings, write TeX with single backslashes, for example `tex="\dfrac{mv^2}{r}"`.
 - Diagrams are SVG files in `public/notes/<topic-id>/`.
 - Headings: `##` for each sub-topic section (these make up the table of contents) and `###` inside sections.
 
@@ -67,20 +59,21 @@ Notes come first because every other module links back to them, and they are the
 | Component | Props | Renders |
 |---|---|---|
 | `Definition` | `term`, children | A highlighted box labelled "Learn this wording" |
-| `KeyEquation` | `tex`, `where: [symbol, meaning, unit][]` | A displayed equation and a symbol table |
-| `WorkedExample` | `title`, `marks`, `question` (MDX children), `steps: string[]` (with `$…$` maths) | The question with its marks. Steps are revealed one at a time with "Show next step" and "Show all" |
+| `KeyEquation` | `tex`, `where` (one "symbol / meaning / unit" row per line, separated by ` \| `) | A displayed equation and a symbol table |
+| `WorkedExample` | `title`, `marks`, `steps` (one step per line, with `$…$` maths), and the question as MDX children | The question with its marks. Steps are revealed one at a time with "Show next step" and "Show all" |
 | `CommonMistake` | children | A warning callout |
 | `ExamTip` | children | A tip callout |
-| `SelfCheck` | `id`, `question`, then either `options` + `answer` (index), or `answer` (number) + `unit` + `tolerancePct`; plus `explanation` | An instantly marked question whose result is saved |
+| `SelfCheck` | `id`, `question`, `explanation`, then either `options` (one per line) + `answer` (index), or `answer` (number) + `unit` + `tolerancePct` | An instantly marked question whose result is saved |
 | `TrySim` | `slug` | A card with the simulation's title and summary, linking to it |
-| `Checklist` | none (reads the page's `metadata.checklist`) | Tickable "I can…" statements whose ticks are saved |
+| `Checklist` | `items` (one "id \| text" line per item) | Tickable "I can…" statements whose ticks are saved |
 
 **Numeric SelfCheck marking**
 - The input takes a number only. The unit is shown next to it and is not typed.
 - Input that isn't a number shows "Enter a number" and isn't marked.
 - A value within `tolerancePct` of the answer is correct.
 - The explanation appears after a correct answer or after 2 wrong attempts.
-- Accepted formats: `1.5`, `1,5`, `-2`, `3e8` and `3×10^8`.
+- Accepted formats: `1.5`, `1,5` (decimal comma), `-2` (also the Unicode minus), `3e8` and `3×10^8`. Text with both a comma and a dot (`1,000.5`) or several commas is rejected as ambiguous.
+- The correct answer is shown to 3 significant figures.
 
 ## 6. Page layout
 
@@ -91,10 +84,10 @@ Notes come first because every other module links back to them, and they are the
 
 ## 7. Progress storage
 
-`lib/simkit/storage.ts` is refactored into a generic helper:
+A generic helper in `lib/store.ts` is shared by simulation progress (`lib/simkit/storage.ts`) and notes progress (`lib/notes/progress.ts`):
 
 ```ts
-createStore<T>(backend, { namespace: string; version: number; validate: (v: unknown) => v is T }): {
+createStore<T>(backend, { prefix: string; validate: (v: unknown) => v is T }): {
   available: boolean;
   load(key: string): T | null;
   save(key: string, value: T): void;
@@ -126,21 +119,27 @@ createStore<T>(backend, { namespace: string; version: number; validate: (v: unkn
 - The generic store: round trip, version mismatch, corrupt JSON and throwing backends. The existing simulation storage tests must still pass unchanged.
 
 **Content test (Vitest)**
-- Scans `content/notes/*.mdx`. For each file it checks that:
+- Scans `content/notes/*.mdx` (`lib/notes/scan.mjs`, also used by the index script). For each file it checks that:
+  - component names are spelled correctly, and required props are present;
   - self-check ids are unique;
-  - multiple-choice answers are valid option indices;
-  - numeric answers are finite, with `tolerancePct > 0`;
-  - `TrySim` slugs exist in the registry;
-  - checklist ids are unique;
-  - every topic with `modules.notes = true` has a file, and every file matches a topic;
+  - multiple-choice answers are valid option indices, with at least 2 options;
+  - numeric answers are finite and non-zero, with `unit` and `tolerancePct > 0`;
+  - `TrySim` slugs exist in the registry, and a topic links to each of its simulations;
+  - checklist ids are unique, and headings contain no maths;
+  - every topic with `hasNotes = true` has a file, and every file matches a topic;
+  - each page has the promised parts (definitions, equations, worked examples, mistakes, tips, self-checks of both kinds, checklist);
   - `content/notes/index.json` is up to date with the files.
+- The scanner itself is tested with deliberately broken notes.
+
+**Number test (Vitest)**
+- Every worked-example result and every numeric self-check answer is recomputed from the question's inputs and compared with the text of the note.
 
 **Browser tests (Playwright)**
-- Each notes page loads without console errors.
-- A self-check can be answered and the result survives a reload.
-- A checklist item can be ticked.
-- No horizontal overflow on mobile.
-- The home page shows all 25 topics, with unavailable ones not linked.
+- Each notes page loads without console errors, with maths rendered, a working contents list, and no overflow.
+- Self-checks (numeric and multiple choice) are marked correctly, count attempts, and survive a reload; the checklist ticks persist and show on the topic hub.
+- Worked examples reveal step by step, and print with every step.
+- Notes still work when the browser blocks storage.
+- The home page shows all 25 topics, with unavailable ones not linked, and a crawl from the home page finds no broken internal link.
 
 ## 10. Content production
 
